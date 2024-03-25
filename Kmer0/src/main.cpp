@@ -3,14 +3,10 @@
  * Curso 2023/2024
  */
 
-/**
- * @file main.cpp
- * @author Silvia Acid Carrillo <acid@decsai.ugr.es>
- * @author Andrés Cano Utrera <acu@decsai.ugr.es>
- * @author Luis Castillo Vidal <L.Castillo@decsai.ugr.es>
- * @author Javier Martínez Baena <jbaena@ugr.es>
- *
- * Created on 24 October 2023, 13:58
+/* 
+ * File:   main.cpp
+ * @author Paloma Ruiz Molina, <palomaruiz2005@correo.ugr.es>
+ * @author Francisco Bravo Díez, <franbravodiez@correo.ugr.es>
  */
 
 #include <iostream>
@@ -51,26 +47,66 @@ int main(int argc, char* argv[]) {
     const string COMPLEMENTARY_NUCLEOTIDES = "TGCA";
 
     // This is a constant with the dimension of the array kmers
-    const int DIM_ARRAY_KMERS = 100;
+    const int DIM_ARRAY_KMERS = 100; //El tamaño del array siempre va como constante;
     
     // This is the array where the kmers of the input genetic sequence will be
     // saved
-    Kmer kmers[DIM_ARRAY_KMERS];
+    // Aqui es donde se guardan en grupos de k letras en cada posición del array
+    Kmer kmers[DIM_ARRAY_KMERS]; //Array de objeto kmer.
     
-    // This is the array where the complementary kmers will be
-    // saved
+    // This is the array where the complementary kmers will be saved
     Kmer complementaryKmers[DIM_ARRAY_KMERS];
     
-    // Read K (integer) and a string with the input nucleotides list
-
-    // Obtain the kmers: find the kmers in the input string and put them in an array of Kmers
+    int k;
+    string inputstring; //Lista de nucleótidos de entrada
+    int num_kmeros;
     
-    // Normalize each Kmer in the array
-
+    // Read K (integer) and a string with the input nucleotides list
+    cin >> k;
+    cin >> inputstring; //Lee linea completa de texto y lo almacena en un string
+    
+    num_kmeros=inputstring.size()-k+1;
+    
+    if(num_kmeros <= 0 || num_kmeros > DIM_ARRAY_KMERS){
+            throw out_of_range(string ("Kmer(const char& at(int index):") +
+                    "El indice está fuera de rango");
+    }
+    
+    
+    
+    // Obtain the kmers: find the kmers in the input string and put them in an array of Kmers
+    for(int i=0; i<inputstring.size(); i++){
+      
+        Kmer minikmer=inputstring.substr(i,k);  
+         // Normalize each Kmer in the array 
+        minikmer.normalize(VALID_NUCLEOTIDES);
+        kmers[i]=minikmer;
+       }
+    
     // Obtain the complementary kmers and turn them into lowercase
-
-    // Show the list of kmers and complementary kmers as in the example
+   for(int i=0; i< inputstring.size(); i++){
+        
+       Kmer minikmer2 = kmers[i].complementary(VALID_NUCLEOTIDES, COMPLEMENTARY_NUCLEOTIDES);
+       
+       ToLower(minikmer2);
+       
+       complementaryKmers[i]=minikmer2;
+       }
+    
+   // Show the list of kmers and complementary kmers as in the example
+    
+    cout << num_kmeros<< endl;
+    
+    for(int i=0; i<num_kmeros; i++){
+        cout << kmers[i].toString() << "<-->" << complementaryKmers[i].toString() << endl;
+       }
     
     return 0;
 }
 
+// La funciones importantes es normalize, que se encarga de en los valores que no haya complementario pone una _
+// Y la funcion complementario la cual se encarga de cambiar por los complementerios.
+//Los vectores se pasan por referencia (&), estos se cambian, pero seguimos teniendo el original en el main
+// nombrefuncion( int&v == int [v])
+// El const es como una proteccion que le doy a mi vector, para asegurarme de que ese vector no va a ser modificado dentro de la funcion.
+//Esto puede servir para imprimir un valor
