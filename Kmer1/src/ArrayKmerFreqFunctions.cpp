@@ -28,7 +28,7 @@ using namespace std;
  * @param nElements The number of elements used by the array. Note that this
  * integer could be modified in this function. Output parameter
 */
-void ReadArrayKmerFreq(KmerFreq array[], int dim, int &nElements){
+void ReadArrayKmerFreq(KmerFreq array[], int dim, int &nElements){  /// Está función creo que está perfecta 
     
     if(nElements > dim){
         for(int i=0; i<dim; i++){
@@ -110,15 +110,31 @@ void SwapElementsArrayKmerFreq(KmerFreq &array[], int nElements, int first,
  */
 int FindKmerInArrayKmerFreq(const KmerFreq &array[], const Kmer &kmer,
         int initialPos, int finalPos){
-    for(int i=initialPos; i<finalPos; i++){
+    for(int i=initialPos; i<finalPos; i++){  /// Aquí creo que debiera un igual i<= finalPos; 
         if (array[i]== kmer)
-    }
+    }                                        /// Habría que poner un return -1. 
     
 }
 
 
-void NormalizeArrayKmerFreq(KmerFreq array[], int nElements, 
-        string validNucleotides){ 
+void NormalizeArrayKmerFreq(KmerFreq array[], int &nElements, 
+        string validNucleotides) {
+    for(int i = 0; i < nElements; i++){
+        
+        array[i].getKmer().normalize(validNucleotides); 
+    }
+        for(int j = i+1; j <nElements; j++){
+            if( array[i].getKmer()== array[j].getKmer()){
+                for( int k = j; k < nElements -1; k++){
+                    array[k] = array[k+1]; 
+                }
+                
+                nElements--; 
+                
+                j--; 
+            }
+        }
+    }
     
     // Loop to traverse and normalize each one of the kmers in array
           // Normalize kmer i
@@ -131,4 +147,3 @@ void NormalizeArrayKmerFreq(KmerFreq array[], int nElements,
                // Accumulate the frequencies of the kmers at positions 
                //    index and i in the kmer at position index
                // Delete from the array, the kmer at position i 
-}
