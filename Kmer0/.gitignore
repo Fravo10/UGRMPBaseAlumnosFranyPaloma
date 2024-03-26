@@ -1,1 +1,12 @@
 
+build/
+data/
+dist/
+doc/
+nbproject/
+scripts/
+test/
+zip/
+
+*.xml
+*.mk

@@ -1,5 +1,5 @@
 /*
- * Metodología de la Programación: Kmer0
+ * Metodología de la Programación: Kmer1
  * Curso 2023/2024
  */
 
@@ -37,9 +37,9 @@ Kmer::Kmer(int k){
 
 // Construye un objeto mediante el paso de un string
 Kmer::Kmer(const string & text){
-   if( _text.empty()!= true){
+   /*if( _text.empty()){
             throw invalid_argument(string ("Kmer(const string & test):") + "El texto está vacio");
-   }
+   }else{*/
        _text = text; 
    }
    
@@ -130,6 +130,26 @@ Kmer Kmer::complementary(const string& Validnucleotides,
        }
     
     return Kmer(mycomplementary); 
+}
+
+/**
+     * @brief Converts uppercase letters in this Kmer to lowercase
+     * Modifier method
+     */
+void Kmer::toLower(){
+ for(int i=0; i< _text.size(); i++){
+     _text.at(i) = toupper(_text.at(i)); 
+    }
+}
+
+/**
+     * @brief Converts lowercase letters in this Kmer to uppercase
+     * Modifier method
+     */
+void Kmer:: toUpper(){
+    for(int i=0; i< _text.size(); i++){
+     _text.at(i) = tolower(_text.at(i)); 
+    }
 }
 
 //Función externa a nuestra clase
