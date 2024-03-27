@@ -121,19 +121,7 @@ void NormalizeArrayKmerFreq(KmerFreq array[], int &nElements,
         string validNucleotides) {
     for(int i = 0; i < nElements; i++){
         
-        array[i].getKmer().normalize(validNucleotides); 
-    }
-        for(int j = i+1; j <nElements; j++){
-            if( array[i].getKmer()== array[j].getKmer()){
-                for( int k = j; k < nElements -1; k++){
-                    array[k] = array[k+1]; 
-                }
-                
-                nElements--; 
-                
-                j--; 
-            }
-        }
+        array[i].kmer.normalize(validNucleotides); 
     }
     
     // Loop to traverse and normalize each one of the kmers in array
@@ -147,3 +135,31 @@ void NormalizeArrayKmerFreq(KmerFreq array[], int &nElements,
                // Accumulate the frequencies of the kmers at positions 
                //    index and i in the kmer at position index
                // Delete from the array, the kmer at position i 
+
+
+    void ZipArrayKmerFreq(KmerFreq array[], int &nElemnts){
+        int j = 0; 
+        for(int i = 0; i < nElements; i++){
+            if(array[i].kmer.toString().find(MISSING_NUCLEOTIDE) == string :: npos && array[i].frequency > 1){
+                array[j++] = array[i]; 
+            }
+        }
+        
+        nElements = j; 
+    }
+    
+    void CompareArrayFreq( const KmerFreq &a, const KmerFreq &b){
+        if(a.frequency == b.frequency){
+            return a.kmer.toString() < b.kmer.toString()
+        }else{
+        
+        retunr a.frenquency > b.frequency,  
+    }
+    
+    void SortArrayKmerFreq(KmerFreq array[],int &nElements){
+        sort(array, array + nElements, CompareArrayFreq); 
+        
+    }
+    
+    
+    

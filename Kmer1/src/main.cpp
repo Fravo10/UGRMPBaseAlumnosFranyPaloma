@@ -56,7 +56,6 @@ int main(int argc, char* argv[]) {
     KmerFreq kmers[DIM_ARRAY_KMERS];
     
     int nKmers; // Number of elements in the array kmers
-    int frecuencia; 
     // Read an integer n (number of pairs to read)
     
     cout << " Escriba los Kmers:"; 
@@ -65,23 +64,28 @@ int main(int argc, char* argv[]) {
     // Read the n pairs kmers-frequency from the standard input and put them 
     //      in the array kmers
     
-    cout << "Escriba" << nKmers << " los frecuencia de las parejas:"; 
-    for(int i = 0; i < nKmers; i ++){
-        cin >> kmers[i].kmer >> kmers[i].frecuencia; 
-        /// Aquí habría que normalizar el kmer, pero no se si se puede llamar a la funcion del kmer.cpp
+    cout << "Escriba la frecuencia de las parejas"; 
+    for( int i = 0; i <nKmers; i++){
+        string kmer; 
+        int frequency; 
+        cin >> kmer >> frequency; 
+        kmers[i] = KmerFreq(Kmer(kmer), frequency); /// Esto crea un objeto Kmer mediante kmer y asigna kmers a la pos i.
     }
     
     // Normalizes each kmer in the array kmers
+    NormalizeArrayKmerFreq(kmers, nKmers, VALID_NUCLEOTIDES); 
     
     // Zip the kmers in the array kmers
     
+    ZipArrayKmerFreq(kmers, nKmers); 
+    
     // Sort the array kmers
     
-    // Print the array kmers in the standard output
+    SortArrayKmerFreq(kmers, nKmers); 
     
+    // Print the array kmers in the standard output
     cout << "Kmers ordenados "; 
-    for(int i = 0; i <nKmers; i++){
-        cout << kmers[i].kmer << " " << kmers[i].frecuencia
+    PrintArrayKmerFreq(kmers, nKmers)
     }
 
     return 0;
