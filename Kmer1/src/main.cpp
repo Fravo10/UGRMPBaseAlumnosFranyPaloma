@@ -5,12 +5,8 @@
 
 /**
  * @file main.cpp
- * @author Silvia Acid Carrillo <acid@decsai.ugr.es>
- * @author Andrés Cano Utrera <acu@decsai.ugr.es>
- * @author Luis Castillo Vidal <L.Castillo@decsai.ugr.es>
- * @author Javier Martínez Baena <jbaena@ugr.es>
- *
- * Created on 27 October 2023, 12:00
+ * @author Francisco Bravo Díez  <franbravodiez@correo.ugr.es>
+ * @author Paloma RUiz Molina <palomaruiz2005@correo.ugr.es>
  */
 
 #include <iostream>
@@ -41,6 +37,11 @@ using namespace std;
 CC 3
 GC 2
  */
+
+
+bool comparar_frecuencias(const KmerFreq &a, const KmerFreq &b){            /// Compara las frecuencias
+    return a.kmer < b.kmer; 
+}
 int main(int argc, char* argv[]) {
     // This string contains the list of nucleotides that are considered as
     // valid within a genetic sequence. The rest of characters are considered as
@@ -55,11 +56,20 @@ int main(int argc, char* argv[]) {
     KmerFreq kmers[DIM_ARRAY_KMERS];
     
     int nKmers; // Number of elements in the array kmers
-
+    int frecuencia; 
     // Read an integer n (number of pairs to read)
+    
+    cout << " Escriba los Kmers:"; 
+    cin >> nKmers;  
     
     // Read the n pairs kmers-frequency from the standard input and put them 
     //      in the array kmers
+    
+    cout << "Escriba" << nKmers << " los frecuencia de las parejas:"; 
+    for(int i = 0; i < nKmers; i ++){
+        cin >> kmers[i].kmer >> kmers[i].frecuencia; 
+        /// Aquí habría que normalizar el kmer, pero no se si se puede llamar a la funcion del kmer.cpp
+    }
     
     // Normalizes each kmer in the array kmers
     
@@ -68,6 +78,11 @@ int main(int argc, char* argv[]) {
     // Sort the array kmers
     
     // Print the array kmers in the standard output
+    
+    cout << "Kmers ordenados "; 
+    for(int i = 0; i <nKmers; i++){
+        cout << kmers[i].kmer << " " << kmers[i].frecuencia
+    }
 
     return 0;
 }
